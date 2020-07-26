@@ -52,6 +52,7 @@
 // SOFTWARE.
 
 #include <ct/core/plot/plot.h>
+#include <cstdlib>
 
 #define CHECK_EQ(arg1, arg2)                                                                                          \
     if (arg1 != arg2)                                                                                                 \
@@ -59,7 +60,7 @@
                                  std::to_string(arg2) + ")");
 
 #ifdef PLOTTING_ENABLED
-#include <Python.h>
+#include <python2.7/Python.h>
 
 #define PyString_FromString PyUnicode_FromString
 #define PyInt_FromLong PyLong_FromLong
@@ -111,7 +112,9 @@ private:
     _interpreter()
     {
         wchar_t name[] = L"plotting";  // silence compiler warning about const strings
-        Py_SetProgramName(name);   // optional but recommended
+        char charName[10];
+	std::wcstombs(charName, name, 10);
+	Py_SetProgramName(charName);   // optional but recommended
         Py_Initialize();
 
         PyObject* pyplotname = PyString_FromString("matplotlib.pyplot");

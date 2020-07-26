@@ -1,11 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
-project(ct VERSION 3.0.2 LANGUAGES CXX)
-
-#Make sure metapackage does not fail when building documentation
-add_custom_target(doc
-        COMMAND ${CMAKE_COMMAND} -E echo_append "Building CT Documentation..."
-        VERBATIM)
-
-add_custom_target(clang-format
-        COMMAND ${CMAKE_COMMAND} -E echo_append "Running clang-format on CT..."
-        VERBATIM)
+cmake_minimum_required(VERSION 2.8.3)
+project(ct)
+find_package(catkin REQUIRED)
+catkin_metapackage()
