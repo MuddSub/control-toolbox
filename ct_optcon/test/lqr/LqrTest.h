@@ -93,14 +93,14 @@ TEST(LQRTest, quadTest)
     bool foundSolutionIterative = lqr.compute(Q, R, A, B, Kiterative, false, true);
     ASSERT_TRUE(foundSolutionIterative);
 
-#ifdef CT_USE_LAPACK
+// #ifdef CT_USE_LAPACK
     bool foundSolutionDirect = lqr.compute(Q, R, A, B, K, false);
     ASSERT_TRUE(foundSolutionDirect);
     ASSERT_LT((K - Kiterative).array().abs().maxCoeff(), 1e-4);
-#endif
+// #endif
 
     int nTests = 100;
-#ifdef CT_USE_LAPACK
+// #ifdef CT_USE_LAPACK
     auto start1 = std::chrono::system_clock::now();
     for (int i = 0; i < nTests; i++)
     {
@@ -110,7 +110,7 @@ TEST(LQRTest, quadTest)
     auto elapsed1 = std::chrono::duration_cast<std::chrono::milliseconds>(end1 - start1);
     std::cout << "solved " << nTests << " lqr problems with state dimension " << stateDim << " in " << elapsed1.count()
               << " ms (average: " << elapsed1.count() / static_cast<double>(nTests) << " ms / lqr)" << std::endl;
-#endif
+// #endif
 
     auto start2 = std::chrono::system_clock::now();
     for (int i = 0; i < nTests; i++)

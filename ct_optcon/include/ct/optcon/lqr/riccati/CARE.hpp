@@ -8,7 +8,7 @@ Licensed under the BSD-2 license (see LICENSE file in main directory)
 #include <iostream>
 
 // Schur reordering from Lapack
-#ifdef CT_USE_LAPACK
+// #ifdef CT_USE_LAPACK
 extern "C" void dtrsen_(const char* JOB,
     const char* COMPQ,
     const int* SELECT,
@@ -27,7 +27,7 @@ extern "C" void dtrsen_(const char* JOB,
     int* IWORK,
     const int* LIWORK,
     int* INFO);
-#endif
+// #endif
 
 namespace ct {
 namespace optcon {

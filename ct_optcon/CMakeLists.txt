@@ -49,22 +49,15 @@ if(MATLAB)
 endif(MATLAB)
 
 
-## lapack libs
-find_package(LAPACK QUIET)
-set(LAPACK_LIBS "")
-if(LAPACK_FOUND)
-    message(STATUS "Found LAPACK library")
-    list(APPEND LAPACK_LIBS lapack)
-    list(APPEND ct_optcon_COMPILE_DEFINITIONS CT_USE_LAPACK)
-else(LAPACK_FOUND)
-    message(STATUS "Could not find LAPACK library")
-endif(LAPACK_FOUND)
+## lapack libs (similified by Seth since CT's version)
+find_package(LAPACK REQUIRED)
+set(LAPACK_LIBS lapack)
 
 
 ## include blasfeo and hpipm, assumed to be installed in "/opt"
 list(APPEND CMAKE_PREFIX_PATH "/opt")
-find_package(blasfeo QUIET)
 find_package(hpipm QUIET)
+find_package(blasfeo QUIET)
 if(blasfeo_FOUND AND hpipm_FOUND)
     message(STATUS "Found HPIPM and BLASFEO")
     set(HPIPM ON)
@@ -155,6 +148,7 @@ target_link_libraries(ct_optcon INTERFACE
     ct_core
     ${matlab_cpp_interface_LIBRARIES}
     ${LAPACK_LIBS}
+		${catkin_LIBRARIES}
     ${HPIPM_LIBS}
     ${IPOPT_LIBS}
     #${SNOPT_LIBS}
